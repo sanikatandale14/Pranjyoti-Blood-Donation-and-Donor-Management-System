@@ -22,6 +22,25 @@ $requests = $conn->query("SELECT * FROM blood_requests WHERE contact_name = '{$_
 <body class="bg-light">
     <?php include '../includes/header.php'; ?>
     
+    <?php if (isset($_SESSION['request_success'])): ?>
+    <div class="modal fade" id="successModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title"><i class="bi bi-check-circle"></i> Request Submitted</h5>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-check-circle-fill text-success display-1"></i>
+                    <p class="mt-3 mb-0"><?php echo $_SESSION['request_success']; ?></p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+    
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2><i class="bi bi-clipboard-check"></i> My Blood Requests</h2>
@@ -89,5 +108,13 @@ $requests = $conn->query("SELECT * FROM blood_requests WHERE contact_name = '{$_
     
     <?php include '../includes/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <?php if (isset($_SESSION['request_success'])): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        });
+    </script>
+    <?php endif; ?>
 </body>
 </html>

@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("sisiisssss", $patient_name, $patient_age, $blood_group, $units_needed, $hospital_name, $hospital_address, $contact_name, $contact_phone, $reason, $urgency);
     
     if ($stmt->execute()) {
-        $_SESSION['success'] = "Blood request submitted successfully! We will contact you soon.";
+        $_SESSION['request_success'] = "Your blood request has been submitted successfully! We will contact you soon.";
         redirect('my-requests.php');
     } else {
         $error = "Failed to submit request. Please try again.";

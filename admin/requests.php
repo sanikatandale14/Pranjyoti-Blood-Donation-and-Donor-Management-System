@@ -9,7 +9,9 @@ if (isset($_POST['update_status'])) {
     redirect('requests.php');
 }
 
-$requests = $conn->query("SELECT * FROM blood_requests ORDER BY created_at DESC");
+$requests = $conn->query("SELECT br.* 
+    FROM blood_requests br 
+    ORDER BY br.created_at DESC");
 ?>
 
 <?php if (isset($_SESSION['success'])): ?>
@@ -32,7 +34,7 @@ $requests = $conn->query("SELECT * FROM blood_requests ORDER BY created_at DESC"
                         <th>Patient</th>
                         <th>Blood Group</th>
                         <th>Units</th>
-                        <th>Hospital</th>
+                        <!-- <th>Hospital</th> -->
                         <th>Contact</th>
                         <th>Urgency</th>
                         <th>Status</th>
@@ -49,10 +51,10 @@ $requests = $conn->query("SELECT * FROM blood_requests ORDER BY created_at DESC"
                             </td>
                             <td><span class="badge bg-danger"><?php echo $row['blood_group']; ?></span></td>
                             <td><?php echo $row['units_needed']; ?></td>
-                            <td>
-                                <small><?php echo $row['hospital_name']; ?></small><br>
-                                <small class="text-muted"><?php echo substr($row['hospital_address'], 0, 30); ?>...</small>
-                            </td>
+                            <!-- <td>
+                                <small><?php echo $row['hospital_name'] ?: 'N/A'; ?></small><br>
+                                <small class="text-muted"><?php echo substr($row['hospital_address'] ?: '', 0, 30); ?>...</small>
+                            </td> -->
                             <td>
                                 <small><?php echo $row['contact_name']; ?></small><br>
                                 <small class="text-muted"><?php echo $row['contact_phone']; ?></small>
@@ -114,7 +116,7 @@ $requests = $conn->query("SELECT * FROM blood_requests ORDER BY created_at DESC"
                                             </div>
                                             <div class="col-6">
                                                 <strong>Hospital:</strong><br>
-                                                <?php echo $row['hospital_name']; ?>
+                                                <?php echo $row['hospital_name'] ?: 'N/A'; ?>
                                             </div>
                                             <div class="col-6">
                                                 <strong>Urgency:</strong><br>
